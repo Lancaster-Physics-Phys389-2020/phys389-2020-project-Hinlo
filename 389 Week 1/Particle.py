@@ -1,7 +1,7 @@
 import numpy as np
 import math
 import copy
-import scipy.constants
+from scipy import constants
 class Particle:
     """
     Class to model a Massive particle in a vacuum. Particle moves downward at constant speed 
@@ -24,6 +24,12 @@ class Particle:
 
     def KineticEnergy(self):
         return 0.5*self.mass*np.vdot(self.velocity,self.velocity)
+
+    def gamma(self):
+        return (1/(math.sqrt(1 - ((np.linalg.norm(self.velocity)*np.linalg.norm(self.velocity))/(constants.speed_of_light*constants.speed_of_light)))))
+
+    def RelativisticKineticEnergy(self):
+        return ((Particle.gamma(self)-1.0)*self.mass*constants.speed_of_light*constants.speed_of_light)
   
     def momentum(self):
         return self.mass*np.array(self.velocity,dtype=float)
