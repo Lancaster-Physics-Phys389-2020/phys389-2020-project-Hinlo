@@ -37,9 +37,9 @@ class Particle:
     def momentum(self):
         return self.mass*np.array(self.velocity,dtype=float)
 
-    def update(self, deltaT):
-        self.velocity +=  self.acceleration*deltaT
-        self.position +=  self.velocity*deltaT
+    def update(self,index ,deltaT):
+        self.velocity[index] +=  self.acceleration[index]*deltaT
+        self.position[index] +=  self.velocity[index]*deltaT
         
         
 

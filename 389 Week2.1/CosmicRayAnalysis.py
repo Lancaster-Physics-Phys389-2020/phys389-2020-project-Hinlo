@@ -11,15 +11,15 @@ CosmicRayData = pd.read_pickle('Cosmic_Ray_Data.csv')
 
 def TrajectoryPlot(Data):
     ax = plt.axes(projection='3d')
-    ax.plot3D(Data['X Position'], Data['Y Position'], Data['Z Position'])
+    ax.plot3D(Data['X Position'], Data['Z Position'], Data['Y Position'])
     ax.set_xlabel('X Position [m]')
-    ax.set_ylabel('Y Position [m]')
-    ax.set_zlabel('Z Position [m]')
+    ax.set_ylabel('Z Position [m]')
+    ax.set_zlabel('Y Position [m]')
     plt.show()
 
 
 def DecelerationPlot(Data):
-    plt.plot(Data['Time'], Data['Y Velocity'])
+    plt.plot(Data['Time'], -Data['Y Velocity'])
     plt.xlabel('Time [s]')
     plt.ylabel('Y-Velocity [m/s]')
     plt.show()
