@@ -8,7 +8,7 @@ from Particle import Particle
 from Particle import Charticle
 
 #This file only works at relativistic speeds, at lower speeds, stoppingforce eqn breaks down.
-Proton = Charticle([0,2.5E4,0], [2.5E8,-2.5E8,0], [0,0,0],'Proton', 1.67E-27, 1)
+Proton = Charticle([0,2.5E4,0], [2.3E7,-2.5E7,0], [0,0,0],'Proton', 1.67E-27, 1)
 
 def StoppingForce(eDensity,charge,beta,V_excitation): # Note beta is different for each x, y, z direction
     t1 = (4*math.pi)/(constants.electron_mass*constants.speed_of_light*constants.speed_of_light)
@@ -47,7 +47,6 @@ def Atmosphere(CosmicRay,RunTime):
 
     #Get direction of motion
     ListofDirections = Direction(CosmicRay.velocity)
-    print(ListofDirections)
     #Begin simulation over Run time
     for _ in np.arange(0, RunTime, deltaT):
         
@@ -64,17 +63,19 @@ def Atmosphere(CosmicRay,RunTime):
                 AccelerationCalc = (Force/CosmicRay.mass)
                 CosmicRay.acceleration[i] = ForceDirectionCheck(CosmicRay.velocity[i],AccelerationCalc)
                 AccerlerationList[i].append(CosmicRay.acceleration[i])
+                CosmicRay.Velocityupdate(i,deltaT)
                 
-                CosmicRay.update(i,deltaT)
 
                 if ListofDirections[i] == 1 and CosmicRay.velocity[i] < 0:
                     CosmicRay.velocity[i] = 0
                     CosmicRay.acceleration[i] = 0 
+                    CosmicRay.Positionupdate(i,deltaT)
                 elif ListofDirections[i] == -1 and CosmicRay.velocity[i] > 0:
                     CosmicRay.velocity[i] = 0
                     CosmicRay.acceleration[i] = 0 
+                    CosmicRay.Positionupdate(i,deltaT)
                 else:
-                    continue
+                    CosmicRay.Positionupdate(i,deltaT)
             
         time += deltaT
 
@@ -82,8 +83,8 @@ def Atmosphere(CosmicRay,RunTime):
                      'X Velocity':VelocityList[0], 'Y Velocity':VelocityList[1], 'Z Velocity':VelocityList[2],
                      'X Acceleration':AccerlerationList[0], 'Y Acceleration':AccerlerationList[1], 'Z Acceleration':AccerlerationList[2]}
     CosmicRayDataFrame = pd.DataFrame(CosmicRayData)
-    print(CosmicRayDataFrame)
+    #print(CosmicRayDataFrame)
     CosmicRayDataFrame.to_pickle('Cosmic_Ray_Data.csv')
     
     
-Atmosphere(Proton, 0.0001)
+Atmosphere(Proton, 0.0000001)
