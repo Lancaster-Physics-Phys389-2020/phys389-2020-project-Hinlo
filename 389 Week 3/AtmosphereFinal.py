@@ -8,7 +8,7 @@ from Particle import Particle
 from Particle import Charticle
 from AtmosphereSupportFunctions import StoppingForce, NonRelativisticStoppingForce, Direction, ForceDirectionCheck
 
-Proton = Charticle([0,2.5E4,0], [2.7E8,-2.5E8,0], [0,0,0],'Proton', 1.67E-27, 1)
+Proton = Charticle([0,8E4,0], [0.6*constants.speed_of_light,-0.7*constants.speed_of_light,0], [0,0,0],'Proton', 1.67E-27, 1) # 80E4 is top of mesosphere, cosmic ray speed range 0.43c - 0.996c
 
 def Atmosphere(CosmicRay,RunTime):
     
@@ -28,14 +28,14 @@ def Atmosphere(CosmicRay,RunTime):
         for i in range(len(CosmicRay.velocity)):
             PositionList[i].append(CosmicRay.position[i])
             VelocityList[i].append(CosmicRay.velocity[i])
-            if np.abs(CosmicRay.velocity[i]) <= 2.7E6:
+            if np.abs(CosmicRay.velocity[i]) <= 2.74E6: # minimum speed before bethe stopping power eqn breaks due to -ve ln.
                 AccerlerationList[i].append(CosmicRay.acceleration[i])
 
             else:
                 if np.abs(CosmicRay.velocity[i]) >= 1E7:
-                    Force = StoppingForce(2.5E25,CosmicRay.charge,beta[i],1.29E-17)                 
+                    Force = StoppingForce(5.3E25,CosmicRay.charge,beta[i],1.36E-17) # using stratosphere eDensity for now.                 
                 else:
-                    Force = NonRelativisticStoppingForce(2.5E25,CosmicRay.charge,CosmicRay.velocity[i],1.29E-17)                    
+                    Force = NonRelativisticStoppingForce(5.3E25,CosmicRay.charge,CosmicRay.velocity[i],1.36E-17) # using stratosphere eDensity for now.                    
 
                 AccelerationCalc = (Force/CosmicRay.mass)
                 CosmicRay.acceleration[i] = ForceDirectionCheck(ListofDirections[i],AccelerationCalc)                

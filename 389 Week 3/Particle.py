@@ -57,7 +57,7 @@ class Charticle(Particle):
     Charge in multiples of e, the electron charge magnitude.
     """
 
-    def __init__(self, Position=np.array([0,0,0], dtype=float), Velocity=np.array([0,0,0], dtype=float), Acceleration=np.array([0,0,0], dtype=float), Name='Roger', Mass=1.0, Charge = 1.0):
+    def __init__(self, Position=np.array([0,0,0], dtype=float), Velocity=np.array([0,0,0], dtype=float), Acceleration=np.array([0,0,0], dtype=float), Name='Particle Name', Mass=1.0, Charge = 1.0):
         
         super().__init__(Position=Position, Velocity=Velocity, Acceleration=Acceleration, Name=Name, Mass=Mass)
 
