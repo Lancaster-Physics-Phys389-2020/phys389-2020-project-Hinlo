@@ -65,7 +65,7 @@ class CosmicRay(Charticle):
         
         
 
-        if self.interact >= 70:
+        if self.interact >= 50:
             
             for i in range(len(self.velocity)):
                 PositionList[i].append(self.position[i])
@@ -75,14 +75,13 @@ class CosmicRay(Charticle):
                 
         else:    
             for i in range(len(self.velocity)):
-                self.interact = round(random.randint(0,100)*np.abs(self.velocity[i]))/(0.708*constants.speed_of_light)
-                # print('Interaction has value %s'%(self.interact))
+                self.interact = round(random.randint(0,100)*np.abs(self.velocity[i]))/(2E8)
 
-                # if self.interact != 0:
-                #     time.sleep(0.1)
-                if self.interact >= 70:
-                    # print('OMG Interaction!')
+                if self.interact >= 50:
+                    print('Interaction!')
                     for j in range(3-i):
+                        # self.velocity = np.array([0,0,0], dtype=float)
+                        # self.acceleration = np.array([0,0,0], dtype=float)
                         PositionList[2-j].append(self.position[2-j])
                         VelocityList[2-j].append(self.velocity[2-j])
                         AccelerationList[2-j].append(self.acceleration[2-j])
@@ -118,6 +117,18 @@ class CosmicRay(Charticle):
                         else:
                             self.Positionupdate(i,deltaT)
 
-    # def InteractionCheck(self,Interact):
-    #     if Interact
-       
+
+    # def InteracionCheck(self,...)
+    #     for i in range(len(self.velocity)):
+    #         self.interact = round(random.randint(0,100)*np.abs(self.velocity[i]))/(2E8)
+
+    #         if self.interact >= 50:
+    #             print('Interaction!')
+    #             for j in range(3-i):
+    #                 # self.velocity = np.array([0,0,0], dtype=float)
+    #                 # self.acceleration = np.array([0,0,0], dtype=float)
+    #                 PositionList[2-j].append(self.position[2-j])
+    #                 VelocityList[2-j].append(self.velocity[2-j])
+    #                 AccelerationList[2-j].append(self.acceleration[2-j])
+    #             break
+    # SOMETHING LIKE THIS!!!!

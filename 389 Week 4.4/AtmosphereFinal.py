@@ -32,6 +32,7 @@ def Atmosphere(RunTime, NumberofCosmicRays):
             
             TimeList.append(time)
             if Update == 1:
+                # Bunch[j].InteractionCheck(...)
                 Bunch[j].CosmicRayInteractionUpdate(deltaT, PositionList, VelocityList, AccelerationList, ListofDirections)
             else:  
                 Bunch[j].CosmicRayUpdate(deltaT, PositionList, VelocityList, AccelerationList, ListofDirections)

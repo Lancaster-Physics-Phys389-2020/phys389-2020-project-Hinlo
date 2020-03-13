@@ -35,15 +35,23 @@ def DataFrameShow():
             Repeat = str(input('\nWould you like to look at any more Particles?\n [Type Y/N]\n '))
         
 
-def TrajectoryPlot(DataFrames):   
+def TrajectoryPlot(DataFrames):
+    DistanceList = []
     ax = plt.axes(projection='3d')
     for i in range(len(DataFrames)):
+        DistanceList.append(DataFrames[i]['Y Position'][99])
         ax.plot3D(DataFrames[i]['X Position'], DataFrames[i]['Z Position'], DataFrames[i]['Y Position'])
         TrajectoryPercent = round((i+1)/(len(DataFrames))*100, 1)
         print('Data Plots are %s %% complete' %(TrajectoryPercent))
-    ax.set_xlim3d(5.1E4, 8.1E4)
-    ax.set_ylim3d(5.1E4,8.1E4)
-    ax.set_zlim3d(5.1E4,8.1E4) # this is y data; have put on x axis to show cosmic rays fall from the sky.
+    
+    MinYposition = min(DistanceList)
+    MaxYposition = DataFrames[0]['Y Position'][99]
+    difference = (MaxYposition - MinYposition)/2
+    
+    
+    ax.set_xlim3d(-difference, difference)
+    ax.set_ylim3d(-difference, difference)
+    ax.set_zlim3d(MinYposition, MaxYposition) # this is y data; have put on x axis to show cosmic rays fall from the sky.
     ax.set_xlabel('X Position [m]')
     ax.set_ylabel('Z Position [m]')
     ax.set_zlabel('Y Position [m]')
