@@ -6,7 +6,7 @@ import random
 from scipy import constants
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-from RunSimulationSupportingFunctions import DataRead, DataFrameShow, TrajectoryPlot, DecelerationPlot, EnergyLossPlot
+from RunSimulationSupportFunctions import DataRead, DataFrameShow, TrajectoryPlot, DecelerationPlot, EnergyLossPlot
 from AtmosphereFinal import Atmosphere
 
 

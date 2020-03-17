@@ -5,15 +5,24 @@ from scipy import constants
 
 class Particle:
     """
-    Class to model a Massive particle in a vacuum. Particle moves downward at constant speed 
-    It will make use of numpy arrays to store the Position Velocity etc. 
-     
+    Class to model a neutral massive particle. Contains functinos to calculate the kinetic energy, beta value and momentum of the particle. 
+    Contains functions to update the particle's position and velocity after a time step.
+    
+    Parameters:
+    - Postion (ndarray): Particle's position vector.
+    - Velocity (ndarray): Particle's velocity vector.
+    - Acceleration (ndarray): Particle's acceleration vector.
+    - Name (str): Name of the particle.
+    - Mass (float): Particle's mass.
+    - index (int): Specifies a vector component in the x, y or z direction.
+    - deltaT (float): The timestep of the simulation being run. 
+    Returns:
+    - A statement with the particle's current parameters.
 
-    Mass in kg 
-    Position and Velocity in m/s 
+    Mass in kg, position in m, velocity in m/s, acceleration in m/s^2 
     """
 
-    def __init__(self, Position=np.array([0,0,0], dtype=float), Velocity=np.array([0,0,0], dtype=float), Acceleration=np.array([0,0,0], dtype=float), Name='Roger', Mass=1.0):
+    def __init__(self, Position=np.array([0,0,0], dtype=float), Velocity=np.array([0,0,0], dtype=float), Acceleration=np.array([0,0,0], dtype=float), Name='Particle Name', Mass=1.0):
         self.Name = Name
         self.position = np.array(Position,dtype=float)
         self.velocity = np.array(Velocity,dtype=float)
@@ -46,9 +55,14 @@ class Particle:
 
 class Charticle(Particle):
     """
-    Class to give charge parameter to particles. Currently set to give a proton e.g charge = 1.0
+    Class to give charge parameter to particles from the Particle class to creat a charged particle. Currently set to give a proton e.g charge = 1.0
     
-
+    Parameters:
+    - Particle parameters (see above).
+    - Charge (float): The charge of the particle relative to the electron charge magnitude.
+    Returns:
+    - A statement with the charged particle's current parameters.
+    
     Charge in multiples of e, the electron charge magnitude.
     """
 
