@@ -33,7 +33,7 @@ Functions:
     - Number of Particles (int): The number of cosmic rays in the simulation.
     - SaveDetail (str): A statement used to identify the plots as for interacting or non-interacting cosmic rays when saving.
     DataMembers:
-    - DistanceList (List): Contains the final verticle positions of each particle in the simulation, these are used to set the graph axis limits.
+    - DistanceList (List): Contains the final verticle positions of each particle in the simulation, these are used to set the trajectory graph axis limits.
 
 """
 
@@ -60,21 +60,21 @@ def DataFrameShow(DataFrames):
 def TrajectoryPlot(DataFrames, NumberofParticles, SaveDetail):
     DistanceList = []
     ax = plt.axes(projection='3d')
-    for i in range(len(DataFrames)):
-        DistanceList.append(DataFrames[i]['Y Position [m]'][999])
+    for i in range(len(DataFrames)): # This loop plots each cosmic ray trajectory on the same graph.
+        DistanceList.append(DataFrames[i]['Y Position [m]'][999]) # The final verticle positions of each cosmic ray are appended to the distance list.
         ax.plot3D(DataFrames[i]['X Position [m]'], DataFrames[i]['Z Position [m]'], DataFrames[i]['Y Position [m]'])
-        TrajectoryPercent = round((i+1)/(len(DataFrames))*100, 1)
+        TrajectoryPercent = round((i+1)/(len(DataFrames))*100, 1) # the percentage of plots complete is calculated and printed.
         print('Data Plots are %s %% complete' %(TrajectoryPercent))
-    MinYposition = min(DistanceList)
-    MaxYposition = DataFrames[0]['Y Position [m]'][0]
-    difference = (MaxYposition - MinYposition)/2
+    MinYposition = min(DistanceList) # Take the minimum value from the list of final verticle values.
+    MaxYposition = DataFrames[0]['Y Position [m]'][0] # The maximum verticle position is simply the starting verticle position for any of the cosmic rays.
+    difference = (MaxYposition - MinYposition)/2 # The difference is taken and used as the limits in for the X and Z axis'.
     ax.set_xlim3d(-difference, difference)
     ax.set_ylim3d(-difference, difference)
-    ax.set_zlim3d(MinYposition, MaxYposition) # this is y data; have put on z axis to show cosmic rays fall from the sky.
+    ax.set_zlim3d(MinYposition, MaxYposition) # this is Y data, it is put on the Z axis to show cosmic rays falling downwards.
     ax.set_xlabel('X Position [m]')
     ax.set_ylabel('Z Position [m]')
     ax.set_zlabel('Y Position [m]')
-    plt.savefig('Figures/Trajectory_Plot_%s_%s_Cosmic_Rays.png'%(NumberofParticles, SaveDetail),bbox_inches = 'tight')
+    plt.savefig('Figures/Trajectory_Plot_%s_%s_Cosmic_Rays.png'%(NumberofParticles, SaveDetail),bbox_inches = 'tight') # The plot is saved into the figures folder.
     plt.show()
 
 def DecelerationPlot(DataFrames, NumberofParticles, SaveDetail):
@@ -82,7 +82,7 @@ def DecelerationPlot(DataFrames, NumberofParticles, SaveDetail):
         plt.plot(DataFrames[i]['Time [s]'], -DataFrames[i]['Y Velocity [m/s]'])
     plt.xlabel('Time [s]')
     plt.ylabel('Y-Velocity [m/s]')
-    plt.savefig('Figures/Deceleration_Plot_%s_%s_Cosmic_Rays.png'%(NumberofParticles, SaveDetail),bbox_inches = 'tight')
+    plt.savefig('Figures/Deceleration_Plot_%s_%s_Cosmic_Rays.png'%(NumberofParticles, SaveDetail),bbox_inches = 'tight') # The plot is saved into the figures folder.
     plt.show()
 
 
@@ -91,5 +91,5 @@ def EnergyLossPlot(DataFrames, NumberofParticles, SaveDetail):
         plt.plot(DataFrames[i]['Time [s]'], DataFrames[i]['Particle Energy [J]'])
     plt.xlabel('Time [s]')
     plt.ylabel('Particle Energy [J]')
-    plt.savefig('Figures/EnergyLoss_Plot_%s_%s_Cosmic_Rays.png'%(NumberofParticles, SaveDetail),bbox_inches = 'tight')
+    plt.savefig('Figures/EnergyLoss_Plot_%s_%s_Cosmic_Rays.png'%(NumberofParticles, SaveDetail),bbox_inches = 'tight') # The plot is saved into the figures folder.
     plt.show()

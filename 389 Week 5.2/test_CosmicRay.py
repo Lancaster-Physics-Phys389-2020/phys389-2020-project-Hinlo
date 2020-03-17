@@ -10,24 +10,34 @@ from CosmicRayClass import CosmicRay
 from AtmosphereSupportFunctions import BunchFunction, Direction, Interacted
 from CosmicRaySupportFunctions import StoppingForce, NonRelativisticStoppingForce, ForceDirectionCheck
 
-
-
-# To initialise test: open terminal: view -> Terminal, once terminal loads, type in pytest, this runs pytest across all files in the folder.
+"""
+This file contains test functions for each of the testable functions used in the simulation. Each file is docstringed individually.
+To initialise test: open terminal: view -> Terminal, once terminal loads, type in pytest, this runs pytest across all files in the folder.
+"""
 TestProton = CosmicRay([0,8E4,0], [0,-0.6*constants.speed_of_light,0], [0,0,0],'Proton', constants.proton_mass, constants.proton_mass, 1.0, 0, 1)
 StationaryTestProton = CosmicRay([0,8E4,0], [0,0,0], [0,0,0],'Proton', constants.proton_mass, constants.proton_mass, 1.0, 0, 1)
 
 
 
 # AtmosphereSupportFunctions Tests:
-def test_BunchFunction(): # Check that a bunch containing a single particle returns a list of length one and the particle is given the maximum velocity vector 
+def test_BunchFunction(): 
+    """
+    Check that a bunch containing a single particle returns a list of length one and the particle is given the maximum velocity vector 
+    """
     ListofOne = BunchFunction(1) 
     assert len(ListofOne) == 1
     assert np.all(ListofOne[0].velocity == [0.4*constants.speed_of_light*np.cos(2*math.pi), -(0.43 + (0.48))*constants.speed_of_light, 0.4*constants.speed_of_light*np.sin(2*math.pi)]) #CosmicRay([0,8E4,0], , [0,0,0],'Proton 1',constants.proton_mass, constants.proton_mass, 1, 0, 1.0) 
     
-def test_Direction (): # check that particles direction is correctly identified
+def test_Direction (): 
+    """ 
+    Check that particles direction is correctly identified, the test proton has positive X and Z velocity and negative Y velocity.
+    """
     assert Direction(TestProton.velocity) == [1,-1,1]
 
 def test_Interacted():
+    """
+    To have interacted return 'Yes', a particle must have an interact value of 50 or greater.
+    """
     assert Interacted(0) == 'No'
     assert Interacted(49) == 'No'
     assert Interacted(50) == 'Yes'
