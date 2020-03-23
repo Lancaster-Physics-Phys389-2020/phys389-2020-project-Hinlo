@@ -86,9 +86,9 @@ class CosmicRay(Charticle):
             InteractValues = []
             for i in range(len(self.velocity)): # Calculate a value for Interact in x,y,z directions independently.
                 if i == 1:                                                                             # Interaction probability is proportional distance travelled. 
-                    InteractCalc = round(np.random.normal(0,50)*(np.abs(8E4 - self.position[i])/(700)))# The calculation is set so that the average particle decays after travelling 700m.
+                    InteractCalc = round(np.random.normal(0,43)*(np.abs(8E4 - self.position[i])/(700)))# The calculation is set so that the average particle decays after travelling 700m.
                 else: # x and z position components start at 0m and so run through this. Y position starts at 8E4 and so runs above.
-                    InteractCalc = round(np.random.normal(0,50)*(np.abs(self.position[i])/(700)))
+                    InteractCalc = round(np.random.normal(0,43)*(np.abs(self.position[i])/(700)))
                 InteractValues.append(InteractCalc)                                         
             self.interact = max(InteractValues) # If the particle reaches the interaction value in any direction, it should interact, so the maximum value of Interaction is chosen.
     # Function to calculate the lorentz factor for the cosmic ray.

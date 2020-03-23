@@ -25,7 +25,8 @@ particles, this is 'N/A'. Is included in the dataframe for each particle.
 - ParticleEnergyList (List): Contains the total energy of a particle at each timestep. Is included in the dataframe for each particle.
 - PositionList (List): Contains the position vector of the particle at each timestep. Is included in the dataframe for each particle.
 - VelocityList (List): Contains the velocity vector of the particle at each timestep. Is included in the dataframe for each particle. 
-- Acceleration (List): Contains the acceleration vector of the particle at each timestep. Is included in the dataframe for each particle.
+- AccelerationList (List): Contains the acceleration vector of the particle at each timestep. Is included in the dataframe for each particle.
+- SpeedList (List): Contains the velocity magnitudes of the particle at each timestep. Is included in the dataframe for each particle.
 - List of Directions (List): Contains the initial direction of each of the velocity vector components. Zero or positive velocity is stored as 1. Negative velocity is stored as -1.
 
 Returns: 
@@ -50,10 +51,12 @@ def Atmosphere(RunTime, NumberofCosmicRays, InteractionOnOff):
         PositionList = [[],[],[]]
         VelocityList = [[],[],[]]
         AccelerationList = [[],[],[]]
+        SpeedList = []
         ListofDirections = Direction(Bunch[j].velocity)
 
         for _ in np.arange(0, RunTime, deltaT): # Run the simulation for the given cosmic ray over the RunTime, updating every timestep - deltaT.
             TimeList.append(time) # Append values for this time-step to each data member. These are done before updating the cosmic ray parameters so that intial parameters are recorded.
+            SpeedList.append(np.linalg.norm(Bunch[j].velocity))
             Bunch[j].GammaUpdate() # Calculate gamma for cosmic ray at its current speed.
             Bunch[j].MassUpdate() # Use gamma to calculate relativistic mass of cosmic ray.
             ParticleEnergyList.append(Bunch[j].ParticleEnergyUpdate()) 
@@ -67,10 +70,10 @@ def Atmosphere(RunTime, NumberofCosmicRays, InteractionOnOff):
                 InteractList.append('N/A')
             
             time += deltaT # Add one timestep to the time before repeating the loop.
-        CosmicRayData = {'Particle Number':j+1, 'Time [s]':TimeList, 'Interacted?':InteractList, 'Particle Energy [J]':ParticleEnergyList, # Create a dictionary with the parameters for the cosmic ray at each timestep.
-                        'X Position [m]':PositionList[0], 'Y Position [m]':PositionList[1],'Z Position [m]':PositionList[2],
-                        'X Velocity [m/s]':VelocityList[0], 'Y Velocity [m/s]':VelocityList[1], 'Z Velocity [m/s]':VelocityList[2],
-                        'X Acceleration [m/s^2]':AccelerationList[0], 'Y Acceleration [m/s^2]':AccelerationList[1], 'Z Acceleration [m/s^2]':AccelerationList[2]}
+        CosmicRayData = {'Particle':j+1, 'Time [s]':TimeList, 'Interacted?':InteractList, 'Energy [J]':ParticleEnergyList, # Create a dictionary with the parameters for the cosmic ray at each timestep.
+                        'Speed [m/s]':SpeedList, 'X Pos [m]':PositionList[0], 'Y Pos [m]':PositionList[1],'Z Pos [m]':PositionList[2],
+                        'X Vel [m/s]':VelocityList[0], 'Y Vel [m/s]':VelocityList[1], 'Z Vel [m/s]':VelocityList[2],
+                        'X Acc [m/s^2]':AccelerationList[0], 'Y Acc [m/s^2]':AccelerationList[1], 'Z Acc [m/s^2]':AccelerationList[2]}
         CosmicRayDataFrame = pd.DataFrame(CosmicRayData) # Convert the dictionary to a dataframe for the cosmic ray.
         CosmicRayDataFrame.to_pickle('Data/Cosmic_Ray_Data_%s.csv' %(j+1)) # Pickle and save the dataframe to the Data folder. The data frames are saved with the cosmic ray's number in the bunch.
         percent = round((j+1)/(len(Bunch))*100, 1) # A calculation to print percentage completion of the simulation. This prints after each cosmic ray has been simulated.

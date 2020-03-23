@@ -8,7 +8,7 @@ RunSimilation.py
 (User Action Required)
 
 Imports Atmosphere from AtmosphereFinal.py. Imports DataRead, DataFrameShow, TrajectoryPlot, 
-DeccelerationPlot and EnergyLossPlot functions from RunSimulationSupportFunctions.py.
+DecelerationPlot and EnergyLossPlot functions from RunSimulationSupportFunctions.py.
 This is the only file which requires user interaction. It should be run in the terminal and when run
 requires two user inputs when run: 
  - The number of cosmic rays in the simulation (a sensible choice would be between 1-1000).
@@ -18,7 +18,7 @@ sequence. As the cosmic rays do not interact in this simulation, they can be run
 than all at once. The DataRead function reads the files created in the simulation. The DataFrameShow
 function provides the user the opportunity to look at the dataframes of any of the cosmic rays via user
 input in the terminal. The final three functions that are run create plots of the data. The plots 
-include a trajectory plot, a plot of verticle velocity over time and a plot of energy loss over 
+include a trajectory plot, a plot of vertical velocity over time and a plot of energy loss over 
 time. These are displayed when the file is run and saved.
 - The dataframes are saved in the Data folder. These are overwritten with each simulation to avoid 
 accumulating too many files.
@@ -51,12 +51,12 @@ No adjustments need to be made by the user to this file.
 Contains the CosmicRay class which inherits a Charticle and gives it three more parameters; RestMass,
 Interact and Gamma. These are used in the class functions. The CosmicRayUpdate function updates the
 spatial parameters of the cosmic ray for a given time step. The StoppingForce and NonRelativisticSto-
-ppingForce functions called in this function are set for the parameters of the mesosphere  (the first a
+ppingForce functions called in this function are set for the parameters of the mesosphere (the first a-
 tmospheric layer where air density is not negligible) as cosmic rays stop before roughly the lower limit
-of the mesosphere and are initialised at the upper limit of the mesosphere.The interactionCheck function 
+of the mesosphere and are initialised at the upper limit of the mesosphere. The interactionCheck function 
 calculates a value for whether the particle interacts each time step or passes if the cosmic ray has 
 interacted already. The GammaUpdate function updates the lorentz factor value attributed to the cosmic 
-ray. The MassUpdate function uses the lorentz factor value to update the cosmic rays mass due to 
+ray. The MassUpdate function uses the Lorentz factor value to update the cosmic ray's mass due to 
 relativistic speeds. The ParticleEnergyUpdate function uses the relativistic mass to update the total 
 energy of the particle. 
 
@@ -84,7 +84,7 @@ each cosmic ray which are saved in the Data folder as specified above.
 AtmosphereSupportFunctions.py
 (No User Action Required)
 
-Imports CosmicRay class from CosmicRayClass.py. User may make adjustments to this file to adjust the 
+Imports CosmicRay class from CosmicRayClass.py. User may edit this file to adjust the 
 initial parameters of each cosmic ray.
 Contains Three Functions. The BunchFunction function creates a list of the cosmic rays to be used in 
 the simulation and sets their initial parameters. These can be adjusted by the user if desired but are 
@@ -99,7 +99,7 @@ mass and charge of +1 relative to the electron charge magnitude).
 The Direction function generates a list which represents the direction of the components of the cosmic
 ray's initial velocity vector. This is used to ensure the cosmic ray does not begin to accelerated in 
 the opposite direction once it has slowed down and stopped. The Interacted function checks whether the
-cosmic ray has interacted and returns a statment of 'Yes' or 'No'. 
+cosmic ray has interacted and returns a statement of 'Yes' or 'No'. 
 
 
 RunSimulationSupportFunctions.py
@@ -109,8 +109,8 @@ Imports no functions. No adjustments need to be made by the user to this file.
 Contains five Functions. The DataRead function reads the data files in the Data folder and appends them
 to a single list. The DataframeShow function is a user input loop that allows the user to view any of 
 the cosmic ray dataframes from the simulation. The TrajectoryPlot function is a 3D plot displaying the
-trajectory of each cosmic ray in the simulation. The DeccelerationPlot function is a plot of the 
-verticle velocity of each cosmic ray over the run time. The EnergyLossPlot function is a plot of the 
+trajectory of each cosmic ray in the simulation. The DecelerationPlot function is a plot of the 
+vertical velocity of each cosmic ray over the run time. The EnergyLossPlot function is a plot of the 
 total energy of each cosmic ray over the run time of the simulation.
 
 test_CosmicRay.py
@@ -119,9 +119,17 @@ test_CosmicRay.py
 Imports CosmicRay class from CosmicRayClass.py. Imports the Bunchfunction, Direction and Interacted
 functions from AtmosphereSupportFunctions.py. Imports StoppingForce, NonRelativisticStoppingForce and
 ForceDirectionCheck from CosmicRaySupportFunctions.py. 
-User may make adjustments to this file to adjust the  parameters of each test.
+User may edit this file to adjust the parameters of each test.
 This file contains test functions for each of the functions imported as well as for each of the testable
 functions in the CosmicRayClass. The functions for which test files are not written are those such as 
 functions which generate plots which do not have any obvious outcomes for which to test.
 If changes to the simulation parameters are made the user will need to update the test functions with 
 the new expected results corresponding to these changes.
+
+Data Folder
+Pickled dataframes are saved here. They will be overwritten with each simulation. Therefore Users should 
+copy any important dataframes to a separate folder.
+
+Figures Folder
+Plots are saved here. They will be overwritten with each simulation. Therefore Users should 
+copy any important figures to a separate folder. 
