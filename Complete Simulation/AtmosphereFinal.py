@@ -70,7 +70,7 @@ def Atmosphere(RunTime, NumberofCosmicRays, InteractionOnOff):
                 InteractList.append('N/A')
             
             time += deltaT # Add one timestep to the time before repeating the loop.
-        CosmicRayData = {'Particle':j+1, 'Time [s]':TimeList, 'Interacted?':InteractList, 'Energy [J]':ParticleEnergyList, # Create a dictionary with the parameters for the cosmic ray at each timestep.
+        CosmicRayData = {'Particle':j+1, 'Time [s]':TimeList, 'Interacted?':InteractList, 'Y Energy [J]':ParticleEnergyList, # Create a dictionary with the parameters for the cosmic ray at each timestep.
                         'Speed [m/s]':SpeedList, 'X Pos [m]':PositionList[0], 'Y Pos [m]':PositionList[1],'Z Pos [m]':PositionList[2],
                         'X Vel [m/s]':VelocityList[0], 'Y Vel [m/s]':VelocityList[1], 'Z Vel [m/s]':VelocityList[2],
                         'X Acc [m/s^2]':AccelerationList[0], 'Y Acc [m/s^2]':AccelerationList[1], 'Z Acc [m/s^2]':AccelerationList[2]}

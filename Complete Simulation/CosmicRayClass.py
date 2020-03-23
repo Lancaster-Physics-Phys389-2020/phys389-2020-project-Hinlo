@@ -93,7 +93,7 @@ class CosmicRay(Charticle):
             self.interact = max(InteractValues) # If the particle reaches the interaction value in any direction, it should interact, so the maximum value of Interaction is chosen.
     # Function to calculate the lorentz factor for the cosmic ray.
     def GammaUpdate(self):
-        BetaValue = np.linalg.norm(self.velocity)/constants.speed_of_light # Calculate a value for Beta: velocity magnitude divided by speed of light in a vacuum.
+        BetaValue = abs(self.velocity[1])/constants.speed_of_light# np.linalg.norm(self.velocity)/constants.speed_of_light # Calculate a value for Beta: velocity magnitude divided by speed of light in a vacuum.
         self.gamma = (1/(math.sqrt(1 - BetaValue*BetaValue)))
         return (self.gamma)
     # Function to calculate the relativistic mass of the cosmic ray.

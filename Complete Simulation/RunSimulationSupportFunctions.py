@@ -81,9 +81,9 @@ def TrajectoryPlot(DataFrames, NumberofParticles, SaveDetail):
 
 def DecelerationPlot(DataFrames, NumberofParticles, SaveDetail):
     for i in range(len(DataFrames)):
-        plt.plot(DataFrames[i]['Time [s]'], DataFrames[i]['Speed [m/s]'])
+        plt.plot(DataFrames[i]['Time [s]'], - DataFrames[i]['Y Vel [m/s]'])
     plt.xlabel('Time [s]')
-    plt.ylabel('Particle Speed[m/s]')
+    plt.ylabel('Vertical Speed [m/s]')
     plt.savefig('Figures/Deceleration_Plot_%s_%s_Cosmic_Rays.png'%(NumberofParticles, SaveDetail),bbox_inches = 'tight') # The plot is saved into the figures folder.
     plt.show()
 
@@ -91,12 +91,12 @@ def DecelerationPlot(DataFrames, NumberofParticles, SaveDetail):
 def EnergyLossPlot(DataFrames, NumberofParticles, SaveDetail):
     for i in range(len(DataFrames)):
         EnergyLoss = []
-        for j in range(len(DataFrames[0]['Energy [J]'])-1):
-            loss = DataFrames[i]['Energy [J]'][j] - DataFrames[i]['Energy [J]'][j+1]
+        for j in range(len(DataFrames[0]['Y Energy [J]'])-1):
+            loss = DataFrames[i]['Y Energy [J]'][j] - DataFrames[i]['Y Energy [J]'][j+1]
             EnergyLoss.append(loss)
         EnergyLoss.append(0)
         plt.plot(-DataFrames[i]['Y Pos [m]'],  EnergyLoss)
-    plt.xlabel('Distance Travelled [m]')
-    plt.ylabel('Energy transferred to Atmosphere [J]')
+    plt.xlabel('Vertical Distance Travelled [m]')
+    plt.ylabel('Vertical Kinetic Energy transferred to Atmosphere [J]')
     plt.savefig('Figures/EnergyLoss_Plot_%s_%s_Cosmic_Rays.png'%(NumberofParticles, SaveDetail),bbox_inches = 'tight') # The plot is saved into the figures folder.
     plt.show()
