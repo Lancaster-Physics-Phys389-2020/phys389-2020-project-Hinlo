@@ -40,7 +40,7 @@ Functions:
 def BunchFunction(NumberofParticles):
     PList = []
     for i in range(1,NumberofParticles+1):
-        theta = 2*math.pi*((i-1)/(NumberofParticles-1)) # Used below in asigning velocity vector to each cosmic ray. theta is chosen such that the cosmic ray particles each travel in differnt directions, having started at the same point.
+        theta = 2*math.pi*((i-1)/(NumberofParticles)) # Used below in asigning velocity vector to each cosmic ray. theta is chosen such that the cosmic ray particles each travel in differnt directions, having started at the same point.
         Proton = CosmicRay([0,8E4,0], [0.4*constants.speed_of_light*np.cos(theta), -(0.43 + (0.48*i)/NumberofParticles)*constants.speed_of_light, 0.4*constants.speed_of_light*np.sin(theta)], [0,0,0],'Proton %s'%(i),constants.proton_mass, constants.proton_mass, 1, 0, 1.0) # 80E4 is the top of the mesosphere, cosmic rays range in speed from 0.43c to 0.996c.
         PList.append(Proton)
     return(PList)

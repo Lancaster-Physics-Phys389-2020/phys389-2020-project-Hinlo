@@ -59,17 +59,22 @@ def DataFrameShow(DataFrames):
         
 def TrajectoryPlot(DataFrames, NumberofParticles, SaveDetail):
     DistanceList = []
+    NumberInteracted = 0 
     ax = plt.axes(projection='3d')
     for i in range(len(DataFrames)): # This loop plots each cosmic ray trajectory on the same graph.
         DistanceList.append(DataFrames[i]['Y Pos [m]'][999]) # The final verticle positions of each cosmic ray are appended to the distance list.
         ax.plot3D(DataFrames[i]['X Pos [m]'], DataFrames[i]['Z Pos [m]'], DataFrames[i]['Y Pos [m]'])
         TrajectoryPercent = round((i+1)/(len(DataFrames))*100, 1) # the percentage of plots complete is calculated and printed.
+        if DataFrames[i]['Interacted?'][999] == 'Yes':
+            NumberInteracted += 1
         print('Data Plots are %s %% complete' %(TrajectoryPercent))
     MinYposition = min(DistanceList) # Take the minimum value from the list of final verticle values.
     MaxYposition = DataFrames[0]['Y Pos [m]'][0] # The maximum verticle position is simply the starting verticle position for any of the cosmic rays.
     difference = (MaxYposition - MinYposition)/2 # The difference is taken and used as the limits in for the X and Z axis'.
-    if SaveDetail == 'Interacting':
-        print('Mean Interaction Distance = %s m' %(round(8E4-((sum(DistanceList))/(len(DistanceList))), 0)))
+    if SaveDetail == 'Interacting': # Only runs if particles are able to interact.
+        print('Mean Interaction Distance = %s m.' %(round(8E4-((sum(DistanceList))/(len(DistanceList))), 0))) # Print the mean interaction distance.
+        print('%s of %s Cosmic Rays interacted.' %(NumberInteracted, NumberofParticles)) # Print the number of particles which interacted.
+    
     ax.set_xlim3d(-difference, difference)
     ax.set_ylim3d(-difference, difference)
     ax.set_zlim3d(MinYposition, MaxYposition) # this is Y data, it is put on the Z axis to show cosmic rays falling downwards.

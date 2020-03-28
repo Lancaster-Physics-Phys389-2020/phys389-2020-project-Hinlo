@@ -22,9 +22,9 @@ def test_BunchFunction():
     """
     Check that a bunch containing a single particle returns a list of length one and the particle is given the maximum velocity vector 
     """
-    ListofOne = BunchFunction(1) 
+    ListofOne = BunchFunction(1)
     assert len(ListofOne) == 1
-    assert np.all(ListofOne[0].velocity == [0.4*constants.speed_of_light*np.cos(2*math.pi), -(0.43 + (0.48))*constants.speed_of_light, 0.4*constants.speed_of_light*np.sin(2*math.pi)]) #CosmicRay([0,8E4,0], , [0,0,0],'Proton 1',constants.proton_mass, constants.proton_mass, 1, 0, 1.0) 
+    assert np.all(ListofOne[0].velocity == [0.4*constants.speed_of_light*np.cos(2*math.pi*(0)), -(0.43 + (0.48))*constants.speed_of_light, 0.4*constants.speed_of_light*np.sin(2*math.pi*(0))]) #CosmicRay([0,8E4,0], , [0,0,0],'Proton 1',constants.proton_mass, constants.proton_mass, 1, 0, 1.0) 
     
 def test_Direction (): 
     """ 

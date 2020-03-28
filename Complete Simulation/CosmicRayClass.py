@@ -19,7 +19,7 @@ class CosmicRay(Charticle):
     - Charticle Parameters (See Charticle class in Particle.py)
     - RestMass (float): The initial mass of a particle. This value is constant and used to update the particles mass due to it's relativistic speed.
     - Interact (int): a value to specify whether the particle has interacted or not. A particle has interacted if Interact >= 50 
-    - Gamma (float): a value for the lorentz factor of the particle calculated using its velocity magnitude. 
+    - Gamma (float): a value for the lorentz factor of the particle in the y direction calculated using its y velocity magnitude. 
     returns:
     - A statement with the Cosmic Ray's current parameters.
 
@@ -58,9 +58,9 @@ class CosmicRay(Charticle):
 
                 else:
                     if np.abs(self.velocity[i]) >= 1E7: # Runs if particle moves at relativistic speeds in a given direction.
-                        Force = StoppingForce(1.67E25,self.charge,Beta[i],1.36E-17) # Using mesosphere electron density, Using mean excitation potential of air.              
+                        Force = StoppingForce(1.67E25,self.charge,Beta[i],1.36E-17) # Using two times mesosphere electron density; particles fall just into the stratosphere so density should be slighlt higher than mesosphere electron density. Using mean excitation potential of air.              
                     else: # Runs if particle moves at non-relativistic speeds in a given direction.
-                        Force = NonRelativisticStoppingForce(1.67E25,self.charge,self.velocity[i],1.36E-17) # Using mesosphere electron density, Using mean excitation potential of air.            
+                        Force = NonRelativisticStoppingForce(1.67E25,self.charge,self.velocity[i],1.36E-17) # Using two times mesosphere electron density; particles fall just into the stratosphere so density should be slighlt higher than mesosphere electron density. Using mean excitation potential of air.            
 
                     AccelerationCalc = (Force/self.mass) # Calculate the decceleration of the particle due to the stopping force.
                     self.acceleration[i] = ForceDirectionCheck(ListofDirections[i],AccelerationCalc)                
